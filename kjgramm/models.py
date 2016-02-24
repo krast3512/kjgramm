@@ -1,14 +1,9 @@
 import os.path
 
 from django.conf import settings
+from django.contrib.auth.models import User
 from django.utils import timezone
-
 from django.db import models
-
-
-class User(object, models.Model):
-    login = models.CharField(max_length=20)
-    password = models.CharField(max_length=20)
 
 
 class Photo(object, models.Model):
