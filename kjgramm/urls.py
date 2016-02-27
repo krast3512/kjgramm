@@ -21,10 +21,10 @@ from django.conf.urls import url
 
 urlpatterns = [
     url(r'add_photo/', views.add_photo),
-    url(r'photo_id/like', views.like),
-    url(r'photo_id/comments', views.comments),
-    url(r'people/?search=''', views.people_search),
-    url(r'photo_id/comments/add_comment', views.add_comment),
+    url(r'(?P<photo_id>\d{0,50})/like', views.like),
+    url(r'(?P<photo_id>\d{0,50})/comments', views.comments),
+    url(r'people/', views.people_search),
+    url(r'(?P<photo_id>\d{0,50})/comments/add_comment', views.add_comment),
     url(r'login/', django.contrib.auth.login),
     url(r'register/', views.register_user),
     url(r'feed/', views.feed)

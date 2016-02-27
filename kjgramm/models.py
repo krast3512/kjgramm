@@ -27,9 +27,10 @@ class Loads(object, models.Model):
     photo_id = models.ForeignKey(to=Photo, on_delete=models.CASCADE, null=False)
 
 
-class Comments(object, models.Model):
+class Commented(object, models.Model):
     photo_id = models.ForeignKey(to=Photo, on_delete=models.CASCADE, null=False)
     post_id = models.ForeignKey(to=Post, on_delete=models.CASCADE, null=False)
+    user_id = models.ForeignKey(to=User, on_delete=models.CASCADE, null=False)
 
 
 class Liked(object, models.Model):
