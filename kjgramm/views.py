@@ -7,17 +7,20 @@ from django.views.decorators.http import require_http_methods
 from kjgramm.forms import TextForm, PhotoModelForm
 from kjgramm.models import Friends, Loads, Photo, Liked, Commented, Post
 
+
 @require_http_methods(["GET"])
 def upload_file(request):
-    form = PhotoModelForm(request.POST, request.FILES)
-    if form.is_valid():
-        new_photo = form.save(commit=False)
+    if request.method == "POST":
+        form = PhotoModelForm(request.POST, request.FILES)
+        if form.is_valid():
+            new_photo = form.save(commit=False)
 
-        new_photo.file = request.FILES["photo"]
-        new_photo.save()
+            new_photo.file = request.FILES["photo"]
+            new_photo.save()
 
+        return render(request, 'upload.html', {'form': form})
+    form = PhotoModelForm()
     return render(request, 'upload.html', {'form': form})
-
 
 
 @require_http_methods(["POST"])
@@ -49,41 +52,50 @@ def comments(request, photo_id):
 
 @require_http_methods(["GET"])
 def people_search(request):
-    form = TextForm(request.GET)
-    if not form.is_valid():
-        return render(request, 'templates/people.html', {'people':[], 'form': form})
-    search = form.cleand_data['search']
-    people_with_friends = []
-    for user in User.objects.all():
-        if search in user.login:
-            people_with_friends.append((user, False))
-    for friend in Friends.objects.all():
-        for i, (man, _) in enumerate(people_with_friends):
-            if friend.first_id == man.login or friend.second_id == man.login:
-                people_with_friends[i] = (man, True)
-    return render(request, 'templates/people.html', {'people': people_with_friends.sort(key=lambda x:x[0].login)})
+    if request.method == "POST":
+        form = TextForm(request.GET)
+        if not form.is_valid():
+            return render(request, 'templates/people.html', {'people': [], 'form': form})
+        search = form.cleand_data['search']
+        people_with_friends = []
+        for user in User.objects.all():
+            if search in user.login:
+                people_with_friends.append((user, False))
+        for friend in Friends.objects.all():
+            for i, (man, _) in enumerate(people_with_friends):
+                if friend.first_id == man.login or friend.second_id == man.login:
+                    people_with_friends[i] = (man, True)
+        return render(request, 'templates/people.html', {'people': people_with_friends.sort(key=lambda x:x[0].login)})
+    form = TextForm()
+    return render(request, 'templates/people.html', {'form': form})
 
 
 @require_http_methods(["POST"])
 def add_comment(request, photo_id):
-    form = TextForm(request.POST)
-    if not form.is_valid():
-        return HttpResponseRedirect()
-    new_text = form.cleand_data['text']
-    post = Post.objects.create(text=new_text)
-    post.save()
-    Commented.objects.create(photo_id=photo_id, post_id=post.id, user_id=request.user.id).save()
-    return HttpResponseRedirect('/' + str(photo_id) + '/comments/')
+    if request.method == "POST":
+        form = TextForm(request.POST)
+        if not form.is_valid():
+            return HttpResponseRedirect()
+        new_text = form.cleand_data['text']
+        post = Post.objects.create(text=new_text)
+        post.save()
+        Commented.objects.create(photo_id=photo_id, post_id=post.id, user_id=request.user.id).save()
+        return HttpResponseRedirect('/' + str(photo_id) + '/comments/')
+    form = TextForm()
+    return render(request, '/' + str(photo_id) + '/comments/', {'form': form})
 
 
 @require_http_methods(["GET", "POST"])
 def register_user(request):
-    form = UserCreationForm(request.POST)
-    if form.is_valid():
-        form.save()
-        new_user = authenticate(username=form.cleaned_data['username'], password=form.cleaned_data['password'])
-        login(request, new_user)
-        return HttpResponseRedirect('/feed/')
+    if request.method == "POST":
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            new_user = authenticate(username=form.cleaned_data['username'], password=form.cleaned_data['password'])
+            login(request, new_user)
+            return HttpResponseRedirect('/feed/')
+        return render(request, 'templates/register.html', {'form': form})
+    form = UserCreationForm()
     return render(request, 'templates/register.html', {'form': form})
 
 
