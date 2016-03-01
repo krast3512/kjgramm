@@ -11,13 +11,16 @@
 	</td>
 
 	<td>
-		<input type = "submit" value = "add"/>
+		<form actions = "media/" enctype="multipart/form-data" method="post">
+			<p><input type = "file" name = "pic"></p>
+		</form>
 	</td>
 </tr>
 
 <tr> 
 	<td>
-		<input type = "submit" style = "width:275px;height:25px" value = "friends"/>
+		<input type = "submit" value = "friends" />
+		<input type = "hidden" name = "friends" value = """"/>
 	</td>
 </tr>
 </table>
@@ -28,7 +31,7 @@
 			<table>
 				<tr>
 					<td>
-						{{ photo.user }}
+						<img src = "/" + {{photo.user}} + "/comments"/>
 					</td>
 					<td>
 						{{ photo.likes_num }} 
