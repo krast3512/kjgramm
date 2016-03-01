@@ -7,7 +7,7 @@ from django.db import models
 
 
 class Photo(object, models.Model):
-    address = models.FilePathField(null=False, path=os.path.join(settings.PROJECT_PATH, "images"))
+    file = models.FileField(null=False, upload_to="images/%Y-%m-%d")
     date = models.DateTimeField(default=timezone.now(), null=False)
     likes_num = models.IntegerField(name="Number of likes", null=False, default=0)
 

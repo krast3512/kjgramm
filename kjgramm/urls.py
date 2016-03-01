@@ -13,14 +13,15 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
+from django.conf.urls.static import static
 import django.contrib.auth
-import views
+from kjgramm import views
 
 from django.conf.urls import url
+from kjgramm import settings
 
 
 urlpatterns = [
-    url(r'add_photo/', views.add_photo),
     url(r'(?P<photo_id>\d{0,50})/like', views.like),
     url(r'(?P<photo_id>\d{0,50})/comments', views.comments),
     url(r'people/', views.people_search),
@@ -29,3 +30,6 @@ urlpatterns = [
     url(r'register/', views.register_user),
     url(r'feed/', views.feed)
 ]
+
+if settings.DEBUG is True:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,21 +1,23 @@
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.views.decorators.http import require_http_methods
+from kjgramm.forms import TextForm, PhotoModelForm
 from kjgramm.models import Friends, Loads, Photo, Liked, Commented, Post
-from django import forms
-
-
-class TextForm(forms.Form):
-    text = forms.CharField(max_length=50)
-
 
 @require_http_methods(["GET"])
-def add_photo(request):
-    return
-#VOVA DELAET
+def upload_file(request):
+    form = PhotoModelForm(request.POST, request.FILES)
+    if form.is_valid():
+        new_photo = form.save(commit=False)
+
+        new_photo.file = request.FILES["photo"]
+        new_photo.save()
+
+    return render(request, 'upload.html', {'form': form})
+
 
 
 @require_http_methods(["POST"])

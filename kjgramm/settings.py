@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'kjgramm',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -121,3 +122,8 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
+
+ENV_PATH = os.path.abspath(os.path.dirname(__file__))
+
+MEDIA_ROOT = os.path.join(ENV_PATH, 'media/')
+MEDIA_URL = "media/"
