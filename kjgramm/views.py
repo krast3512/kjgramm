@@ -50,24 +50,22 @@ def comments(request, photo_id):
                                                        'comments_on_photo': comments_on_photo})
 
 
-@require_http_methods(["GET"])
+@require_http_methods(["POST"])
 def people_search(request):
-    if request.method == "POST":
-        form = TextForm(request.GET)
-        if not form.is_valid():
-            return render(request, 'templates/people.html', {'people': [], 'form': form})
-        search = form.cleand_data['search']
-        people_with_friends = []
-        for user in User.objects.all():
-            if search in user.login:
-                people_with_friends.append((user, False))
-        for friend in Friends.objects.all():
-            for i, (man, _) in enumerate(people_with_friends):
-                if friend.first_id == man.login or friend.second_id == man.login:
-                    people_with_friends[i] = (man, True)
-        return render(request, 'templates/people.html', {'people': people_with_friends.sort(key=lambda x:x[0].login)})
-    form = TextForm()
-    return render(request, 'templates/people.html', {'form': form})
+    form = TextForm(request.GET)
+    if not form.is_valid():
+        return render(request, 'templates/people.html', {'people': [], 'form': form})
+    search = form.cleand_data['search']
+    people_with_friends = []
+    for user in User.objects.all():
+        if search in user.login:
+            people_with_friends.append((user, False))
+    for friend in Friends.objects.all():
+        for i, (man, _) in enumerate(people_with_friends):
+            if friend.first_id == man.login or friend.second_id == man.login:
+                people_with_friends[i] = (man, True)
+    return render(request, 'templates/people.html', {'people': people_with_friends.sort(key=lambda x:x[0].login),
+                                                     'form': form})
 
 
 @require_http_methods(["POST"])
