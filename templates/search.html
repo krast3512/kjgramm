@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<table>
+	<tr>
+		<td>
+			<input /> 
+			<input type = "submit" value = "search" />
+		</td>
+	</tr>
+</table>
+
+<ul>
+	{% for user, tag in people %}
+		<li>
+			{{user}}
+			{% if tag == true %}
+				<p &#10004 />
+			{% endif %}			
+		</li>		
+	{% endfor %}
+</ul>
+
+
+</body>
+</html>

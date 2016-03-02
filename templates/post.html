@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<table> 
+	<tr>
+		<td>
+			<img src = "/" + {{photo.id}} + "/comments"/>
+		</td>
+
+		<td>
+			<ul>
+				{% for comment in comments_on_photo%}
+					<li>
+						<table>
+							<tr>
+								<td> {{ comment.user}} </td>
+							</tr>
+							<tr>
+								<td> {{ comment.post}} </td>
+							</tr>
+						</table>
+					</li>
+				{% endfor %}
+			</ul>
+		</td>
+	</tr>
+
+	<tr>
+		<td>
+			<p photo.likes_num/> people liked this photo
+		</td>
+
+		<td>
+			{% if photo.can_like == true %}
+				{{ <input type = "submit" style = "width:50px;height:50px" value = "like"/>}}
+			{% endif %}
+		</td>
+
+		<td>
+			<input/>
+			<input type = "submit" style = "width:50px;height:50px" value = "comment"/>
+		</td>
+	</tr>
+
+
+</body>
+</html>
