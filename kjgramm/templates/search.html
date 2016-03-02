@@ -5,8 +5,10 @@
 <table>
 	<tr>
 		<td>
-			<input /> 
-			<input type = "submit" value = "search" />
+			<form action = "people/" method = "post">
+				<input /> 
+				<input type = "submit" value = "search" />
+			</form>
 		</td>
 	</tr>
 </table>
@@ -16,7 +18,7 @@
 		<li>
 			{{user}}
 			{% if tag == true %}
-				<p &#10004 />
+				{{ &#10004}}
 			{% endif %}			
 		</li>		
 	{% endfor %}
