@@ -5,8 +5,8 @@
 <table>
 <tr>
 	<td>
-		<p user.name >
-			user.name
+		<p>
+			{{user.name}}
 		</p>
 	</td>
 
@@ -31,7 +31,7 @@
 			<table>
 				<tr>
 					<td>
-						<img src = "/" + {{photo.user}} + "/comments"/>
+						<img src = {{"/" + photo.user + "/comments"}}/>
 					</td>
 					<td>
 						{{ photo.likes_num }} 
