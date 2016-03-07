@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+{{form.errors}}
+
+<table>
+    <form action = "/login/" method = "post">
+        {% csrf_token %}
+
+        <tr>
+            <td>
+                <input placeholder = "Username" name = "username" />
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <input placeholder = "Password" type = "password" name = "password" />
+                <input type="hidden" name="next" value="/feed/" />
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <input type = "submit"/>
+            </td>
+        </tr>
+
+    </form>
+</table>
+
+<a href="/register/">Not registered yet? Sign up!</a>
+
+</body>

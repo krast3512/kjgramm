@@ -14,7 +14,8 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 from django.conf.urls.static import static
-import django.contrib.auth
+from django.contrib.auth.views import login
+from django.views.generic import RedirectView
 from kjgramm import views
 
 from django.conf.urls import url
@@ -22,14 +23,16 @@ from kjgramm import settings
 
 
 urlpatterns = [
-    url(r'(?P<photo_id>\d{0,50})/like', views.like),
-    url(r'(?P<photo_id>\d{0,50})/comments', views.comments),
+    url(r'(?P<photo_id>\d{1,50})/like', views.like),
+    url(r'(?P<photo_id>\d{1,50})/comments', views.comments),
     url(r'people/', views.people_search),
-    url(r'(?P<photo_id>\d{0,50})/comments/add_comment', views.add_comment),
-    url(r'login/', django.contrib.auth.login),
+    url(r'(?P<photo_id>\d{1,50})/comments/add_comment', views.add_comment),
+    url(r'login/$', login, {'template_name': 'login.html'}),
     url(r'register/', views.register_user),
-    url(r'feed/', views.feed)
+    url(r'feed/', views.feed),
+    url(r'(?P<new_friend_id>\d{1,50})/add_to_friends', views.add_to_friends),
+    url(r'^$', RedirectView.as_view(url='/login/', permanent=False))
 ]
 
 if settings.DEBUG is True:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT, view=views.upload_file)

@@ -35,7 +35,6 @@ INSTALLED_APPS = [
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
-    'django.contrib.messages',
     'django.contrib.staticfiles',
     'kjgramm',
 ]
@@ -56,7 +55,7 @@ ROOT_URLCONF = 'kjgramm.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -126,4 +125,6 @@ PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 ENV_PATH = os.path.abspath(os.path.dirname(__file__))
 
 MEDIA_ROOT = os.path.join(ENV_PATH, 'media/')
-MEDIA_URL = "media/"
+MEDIA_URL = "/media/"
+
+LOGIN_URL = "/login/"

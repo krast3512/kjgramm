@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+{{ form.errors }}
+
+{{ request.user.username }}
+
+<table>
+	<tr>
+		<td>
+			<form action = "/people/" method = "post">
+                {% csrf_token %}
+				<input name = "search" />
+				<input type = "submit" value = "search" />
+			</form>
+		</td>
+	</tr>
+</table>
+
+<ul>
+	{% for user, tag in people %}
+		<li>
+            <table>
+
+                {% if tag  %}
+                     <tr>{{user}} &#10004</tr>
+
+                {% else %}
+                    <tr>{{user}} <form action = "/{{ user.id }}/add_to_friends/" method = "post">
+                        {% csrf_token %}
+
+                        <input type = "submit" value = "+" />
+                    </form></tr>
+
+                {% endif %}
+
+            </table>
+		</li>		
+	{% endfor %}
+</ul>
+
+
+</body>
+</html>

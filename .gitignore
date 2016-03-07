@@ -63,3 +63,6 @@ target/
 
 # JetBrains IDE
 .idea/*
+
+*.sqlite3
+*/migrations/*

@@ -2,26 +2,37 @@
 <html>
 <body>
 
+{{ form.errors }}
+
+<form action = "/register/" method = "post">
+    {% csrf_token %}
 <table>
 	<tr>
 		<td>
-			<input placeholder = "username"/>
-    	</td>
+			<input placeholder="User" name="username"/>
+		</td>
 	</tr>
 
 	<tr>
 		<td>
-			<input placeholder = "password"/>
-    	</td>
+			<input placeholder="Password" name="password1" type="password"/>
+		</td>
+	</tr>
+
+    <tr>
+		<td>
+			<input placeholder="Repeat password" name="password2" type="password"/>
+		</td>
 	</tr>
 
 	<tr>
 		<td>
-			<input type = "submit" value = "login"/>
-			<input type = "submit" value = "register"/>
+			<input type = "submit" value = "sign up"/>
 		</td>
 	</tr>
 </table>
+</form>
+
 
 </body>
 </html>
