@@ -14,22 +14,22 @@ class Post(models.Model):
     date = models.DateTimeField(default=timezone.now(), null=False)
 
 
-class Friends(models.Model):
-    first_id = models.ForeignKey(related_name="first_id", to=User, on_delete=models.CASCADE, null=False)
-    second_id = models.ForeignKey(related_name="second_id", to=User, on_delete=models.CASCADE, null=False)
+class Followed(models.Model):
+    follower = models.ForeignKey(related_name="follower", to=User, on_delete=models.CASCADE, null=False)
+    followed = models.ForeignKey(related_name="followed", to=User, on_delete=models.CASCADE, null=False)
 
 
 class Loads(models.Model):
-    user_id = models.ForeignKey(to=User, on_delete=models.CASCADE, null=False)
-    photo_id = models.ForeignKey(to=Photo, on_delete=models.CASCADE, null=False)
+    user = models.ForeignKey(to=User, on_delete=models.CASCADE, null=False)
+    photo = models.ForeignKey(to=Photo, on_delete=models.CASCADE, null=False)
 
 
 class Commented(models.Model):
-    photo_id = models.ForeignKey(to=Photo, on_delete=models.CASCADE, null=False)
-    post_id = models.ForeignKey(to=Post, on_delete=models.CASCADE, null=False)
-    user_id = models.ForeignKey(to=User, on_delete=models.CASCADE, null=False)
+    photo = models.ForeignKey(to=Photo, on_delete=models.CASCADE, null=False)
+    post = models.ForeignKey(to=Post, on_delete=models.CASCADE, null=False)
+    user = models.ForeignKey(to=User, on_delete=models.CASCADE, null=False)
 
 
 class Liked(models.Model):
-    user_id = models.ForeignKey(to=User, on_delete=models.CASCADE, null=False)
-    photo_id = models.ForeignKey(to=Photo, on_delete=models.CASCADE, null=False)
+    user = models.ForeignKey(to=User, on_delete=models.CASCADE, null=False)
+    photo = models.ForeignKey(to=Photo, on_delete=models.CASCADE, null=False)

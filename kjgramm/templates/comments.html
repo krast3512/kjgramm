@@ -2,22 +2,43 @@
 <html>
 <body>
 
-<table> 
+<table>
 	<tr>
 		<td>
-			<img src = "/" + {{photo.id}} + "/comments"/>
+			<img src = {{ photo.file.url }} , style = "width:550px;height:300px" />
+		</td>
+    </tr>
+
+    <tr>
+		<td>
+			<p>{{ photo.likes_num }} people liked this photo
 		</td>
 
 		<td>
+            {% if can_like %}
+                <form action = "/{{ photo.id }}/like" method = "post">
+                    {% csrf_token %}
+                    <input type = "submit" style = "width:50px;height:50px" value = "like"/>
+                    <input type = "hidden" name = "next" value = "/{{ photo.id }}/comments" />
+
+                </form>
+            {% else %}
+                &#10004
+
+            {% endif %}
+		</td>
+    </tr>
+
+    <tr>
+		<td>
 			<ul>
-				{% for comment in comments_on_photo%}
+				{% for comment, user in comments_on_photo %}
 					<li>
 						<table>
 							<tr>
-								<td> {{ comment.user}} </td>
-							</tr>
-							<tr>
-								<td> {{ comment.post}} </td>
+								<td> {{ user}}: </td>
+
+								<td> {{ comment.text }} </td>
 							</tr>
 						</table>
 					</li>
@@ -26,23 +47,13 @@
 		</td>
 	</tr>
 
-	<tr>
+    <tr>
 		<td>
-			<p photo.likes_num/> people liked this photo
-		</td>
+			<form action = "/{{photo.id}}/comments/add_comment" method = "post">
+                {% csrf_token %}
 
-		<td>
-			<form actions = {{photo.id}} + "/like" method = "post">
-				{% if photo.can_like == true %}
-					{{ <input type = "submit" style = "width:50px;height:50px" value = "like"/>}}
-				{% endif %}
-			</form>
-		</td>
-
-		<td>
-			<form action = {{photo.id}} + "/comments/add_comment" method = "post">
-				<input/>
-				<input type = "submit" style = "width:50px;height:50px" value = "comment"/>
+				<input name="text" style = "width:500px;height:200px"/>
+				<input type = "submit" style = "width:100px;height:50px" value = "comment"/>
 			</form>
 		</td>
 	</tr>

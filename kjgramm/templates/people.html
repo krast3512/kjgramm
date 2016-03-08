@@ -27,7 +27,7 @@
                      <tr>{{user}} &#10004</tr>
 
                 {% else %}
-                    <tr>{{user}} <form action = "/{{ user.id }}/add_to_friends/" method = "post">
+                    <tr>{{user}} <form action = "/users/{{ user.id }}/follow/" method = "post">
                         {% csrf_token %}
 
                         <input type = "submit" value = "+" />
