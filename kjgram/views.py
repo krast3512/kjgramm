@@ -7,8 +7,8 @@ from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render
 from django.views.decorators.http import require_http_methods
-from kjgramm.forms import SearchForm, PhotoModelForm, CommentForm
-from kjgramm.models import Loads, Photo, Liked, Commented, Post, Followed
+from kjgram.forms import SearchForm, PhotoModelForm, CommentForm
+from kjgram.models import Loads, Photo, Liked, Commented, Post, Followed
 
 
 def filter_followed(user):

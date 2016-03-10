@@ -36,7 +36,7 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.staticfiles',
-    'kjgramm',
+    'kjgram',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -50,7 +50,7 @@ MIDDLEWARE_CLASSES = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'kjgramm.urls'
+ROOT_URLCONF = 'kjgram.urls'
 
 TEMPLATES = [
     {
@@ -63,13 +63,13 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                "django.core.context_processors.media",
+                "django.core.context_processors.media", 
             ],
         },
     },
 ]
 
-WSGI_APPLICATION = 'kjgramm.wsgi.application'
+WSGI_APPLICATION = 'kjgram.wsgi.application'
 
 
 # Database

@@ -1,5 +1,5 @@
 from django import forms
-from kjgramm.models import Photo
+from kjgram.models import Photo
 
 
 class SearchForm(forms.Form):

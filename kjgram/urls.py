@@ -16,10 +16,10 @@ Including another URLconf
 from django.conf.urls.static import static
 from django.contrib.auth.views import login
 from django.views.generic import RedirectView
-from kjgramm import views
+from kjgram import views
 
 from django.conf.urls import url
-from kjgramm import settings
+from kjgram import settings
 
 
 urlpatterns = [
